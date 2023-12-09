@@ -23,7 +23,7 @@ const EventItem = (props) => {
 						<time className={classes.date}>{humanReadableDate}</time>
 					</div>
 					<div>
-						<address className={classes.address}>ADDRESS</address>
+						<address className={classes.address}>{formattedAddress}</address>
 					</div>
 				</div>
 				<div className={classes.actions}>
