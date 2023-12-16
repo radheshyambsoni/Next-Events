@@ -5,6 +5,7 @@ import Button from "@/components/ui/button";
 import ErrorAlert from "@/components/ui/error-alert";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 const FilteredEventsPage = () => {
 	const [loadedEvents, setLoadedEvents] = useState();
@@ -33,8 +34,20 @@ const FilteredEventsPage = () => {
 		}
 	}, [data]);
 
+	let pageHeadData = (
+		<Head>
+			<title>Filtered Events</title>
+			<meta name="description" content="A list of filtered events." />
+		</Head>
+	);
+
 	if (!loadedEvents) {
-		return <p className="center">Loading...</p>;
+		return (
+			<>
+				{pageHeadData}
+				<p className="center">Loading...</p>
+			</>
+		);
 	}
 
 	const filteredYear = filterData[0];
@@ -42,6 +55,16 @@ const FilteredEventsPage = () => {
 
 	const numYear = +filteredYear;
 	const numMonth = +filteredMonth;
+
+	pageHeadData = (
+		<Head>
+			<title>Filtered Events</title>
+			<meta
+				name="description"
+				content={`All events for ${numMonth}/${numYear}`}
+			/>
+		</Head>
+	);
 
 	const filteredEvents = loadedEvents.filter((event) => {
 		const eventDate = new Date(event.date);
@@ -60,6 +83,7 @@ const FilteredEventsPage = () => {
 	) {
 		return (
 			<>
+				{pageHeadData}
 				<ErrorAlert>Invalid Filter. Please adjust the values!</ErrorAlert>
 				<div className="center">
 					<Button link="/events">Show All Events</Button>
@@ -71,6 +95,7 @@ const FilteredEventsPage = () => {
 	if (!filteredEvents || filteredEvents.length === 0) {
 		return (
 			<>
+				{pageHeadData}
 				<ErrorAlert>No events found for the chosen filter</ErrorAlert>
 				<div className="center">
 					<Button link="/events">Show All Events</Button>
@@ -83,6 +108,7 @@ const FilteredEventsPage = () => {
 
 	return (
 		<>
+			{pageHeadData}
 			<ResultsTitle date={date} />
 			<EventList items={filteredEvents} />
 		</>
