@@ -9,13 +9,13 @@ const Comments = props => {
 
 	const [showComments, setShowComments] = useState(false);
 
-	function toggleCommentsHandler() {
+	const toggleCommentsHandler = () => {
 		setShowComments(prevStatus => !prevStatus);
-	}
+	};
 
-	function addCommentHandler(commentData) {
+	const addCommentHandler = commentData => {
 		// send data to API
-	}
+	};
 
 	return (
 		<section className={classes.comments}>
