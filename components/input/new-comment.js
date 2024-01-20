@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react';
 import classes from './new-comment.module.css';
 
 const NewComment = props => {
